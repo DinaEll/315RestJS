@@ -22,8 +22,7 @@
                             <a class="navbar-brand">with roles: </a>
                             <a class="navbar-brand" id="headerRoles"></a>
                         </ul>
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
+                        <ul class="navbar-nav"><li class="nav-item">
                                 <a class="nav-link text-right" href="/logout">Logout</a>
                             </li>
                         </ul>
@@ -35,36 +34,27 @@
 </header>
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-2" style="padding: 0; padding-top: 15px">
-            <ul class="nav nav-pills flex-column">
-                <li class="nav-item">
+    <div class="row"><div class="col-2" style="padding: 0; padding-top: 15px">
+            <ul class="nav nav-pills flex-column"><li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#adminPanel">Admin</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#userPanel">User</a>
-                </li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#userPanel">User</a></li>
             </ul>
         </div>
 
-        <div class="col-10 bg-light">
-            <div class="tab-content" style="padding-top: 15px; height: 100vh">
+        <div class="col-10 bg-light"><div class="tab-content" style="padding-top: 15px; height: 100vh">
 
                 <div class="tab-pane fade show active" id="adminPanel">
-                    <h2>Admin panel</h2>
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" id="allUsersTable" href="#allUsers">Users table</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#newUser">New User</a>
+                    <h2>Admin panel</h2><ul class="nav nav-tabs">
+                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" id="allUsersTable" href="#allUsers">Users table</a>
+                    </li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#newUser">New User</a>
                         </li>
                     </ul>
                     <div class="tab-content">
 
                         <div class="tab-pane fade show active" id="allUsers">
-                            <div class="card">
-                                <h5 class="card-header">All users</h5>
+                            <div class="card"><h5 class="card-header">All users</h5>
                                 <div class="card-body text-center">
                                     <table class="table table-striped">
                                         <thead>
@@ -86,52 +76,38 @@
                         </div>
 
                         <div class="tab-pane fade" id="newUser">
-                            <div class="form-group">
-                                <div class="control-group required">
-                                    <div class="card">
+                            <div class="form-group control-group required card">
                                         <h5 class="card-header">Add new user</h5>
                                         <div class="card-body text-center">
                                             <div class="form justify-content-center mx-auto col-5">
                                                 <form id="formNewUser" name="formNewUser">
                                                     <p>
                                                         <label class="container-fluid" for="newUserFirstName"><strong>Name</strong>
-                                                            <input class="form-control" type="text" name="firstName"
-                                                                   id="newUserFirstName"/>
+                                                            <input class="form-control" type="text" name="firstName" id="newUserFirstName"/>
                                                         </label>
                                                     </p>
                                                     <p>
                                                         <label class="container-fluid" for="newUserPassword"><strong>Password</strong>
-                                                            <input class="form-control" type="password" name="password"
-                                                                   id="newUserPassword"/>
+                                                            <input class="form-control" type="password" name="password" id="newUserPassword"/>
                                                         </label>
                                                     </p>
                                                     <p>
                                                         <label class="container-fluid" for="newUserAge"><strong>Age</strong>
-                                                        <input class="form-control" type="text" name="age"
-                                                        id="newUserAge"/>
+                                                        <input class="form-control" type="text" name="age" id="newUserAge"/>
                                                         </label>
                                                     </p>
                                                     <p>
-                                                        <label class="container-fluid"
-                                                               for="newUserEmail"><strong>Email</strong>
-                                                            <input class="form-control" type="email" name="email"
-                                                                   id="newUserEmail"/>
+                                                        <label class="container-fluid" for="newUserEmail"><strong>Email</strong>
+                                                            <input class="form-control" type="email" name="email" id="newUserEmail"/>
                                                         </label>
                                                     </p>
-                                                    <label class="container-fluid"
-                                                           for="newUserRoles"><strong>Role</strong>
-                                                        <select id="newUserRoles" class="form-control" name="roles"
-                                                                multiple size="2">
-
+                                                    <label class="container-fluid" for="newUserRoles"><strong>Role</strong>
+                                                        <select id="newUserRoles" class="form-control" name="roles" multiple size="2">
                                                         </select>
                                                     </label>
-                                                    <button type="submit" id="newUserButton" class="btn btn-success">Add
-                                                        new user
-                                                    </button>
+                                                    <button type="submit" id="newUserButton" class="btn btn-success">Add new user</button>
                                                 </form>
                                             </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
