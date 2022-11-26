@@ -1,6 +1,59 @@
+//Шапка профиля и отображение юзера у админа
+$(async function() {await thisUser();});
+
+async function thisUser() {
+    fetch("http://localhost:8080/api/viewUser")
+        .then(res => res.json())
+        .then(data => {
+            // Инфа в шапке
+            $('#headerUsername').append(data.username);
+            let roles = data.roles.map(role => " " + role.role.substring(5));
+            $('#headerRoles').append(roles);
+
+            //Инфа в таблице
+            let user = `$(
+            <tr><td>${data.id}</td>
+                <td>${data.firstName}</td>
+                <td>${data.age}</td>
+                <td>${data.email}</td>
+                <td>${roles}</td>)`;
+            $('#userPanelBody').append(user);
+        })
+} //Шапка профиля и отображение юзера у админа
+
+
+//Отображение всех юзеров на страничке админа
+$(async function () {await allUsers();});
+
+const table = $('#tbodyAllUserTable');
+
+async function allUsers() {
+    table.empty()
+    fetch("http://localhost:8080/api/users")
+        .then(res => res.json())
+        .then(data => {
+            data.forEach(user => {
+                let tableWithUsers = `$(
+                        <tr><td>${user.id}</td>
+                            <td>${user.firstName}</td>
+                            <td>${user.age}</td>
+                            <td>${user.email}</td>
+                            <td>${user.roles.map(role => " " + role.role.substring(5))}</td>
+                            <td><button type="button" class="btn btn-info" data-toggle="modal" id="buttonEdit"
+                                data-action="edit" data-id="${user.id}" data-target="#edit">Edit</button>
+                            </td>
+                            
+                            <td><button type="button" class="btn btn-danger" data-toggle="modal" id="buttonDelete"
+                                data-action="delete" data-id="${user.id}" data-target="#delete">Delete</button>
+                            </td>
+                        </tr>)`;
+                table.append(tableWithUsers);
+            })
+        })
+} //Отображение всех юзеров на страничке админа
+
 
 //Добавление нового юзера
-
 $(async function() {await newUser();});
 
 async function newUser() {
@@ -47,40 +100,78 @@ async function newUser() {
     }
 } //Добавление нового юзера
 
+//Изменение модели юзера
+$('#edit').on('show.bs.modal', ev => {
+    let button = $(ev.relatedTarget);
+    let id = button.data('id');
+    showEditModal(id);
+})
 
-//Отображение всех юзеров на страничке админа
+async function showEditModal(id) {
+    $('#rolesEditUser').empty();
+    let user = await getUser(id);
+    let form = document.forms["formEditUser"];
+    form.id.value = user.id;
+    form.firstName.value = user.firstName;
+    form.password.value = user.password;
+    form.age.value = user.age;
+    form.email.value = user.email;
 
-$(async function () {await allUsers();});
-
-const table = $('#tbodyAllUserTable');
-
-async function allUsers() {
-    table.empty()
-    fetch("http://localhost:8080/api/users")
+    await fetch("http://localhost:8080/api/roles")
         .then(res => res.json())
-        .then(data => {
-            data.forEach(user => {
-                let tableWithUsers = `$(
-                        <tr><td>${user.id}</td>
-                            <td>${user.firstName}</td>
-                            <td>${user.age}</td>
-                            <td>${user.email}</td>
-                            <td>${user.roles.map(role => " " + role.role.substring(5))}</td>
-                            <td><button type="button" class="btn btn-info" data-toggle="modal" id="buttonEdit"
-                                data-action="edit" data-id="${user.id}" data-target="#edit">Edit</button>
-                            </td>
-                            
-                            <td><button type="button" class="btn btn-danger" data-toggle="modal" id="buttonDelete"
-                                data-action="delete" data-id="${user.id}" data-target="#delete">Delete</button>
-                            </td>
-                        </tr>)`;
-                table.append(tableWithUsers);
-            })
+        .then(roles => {roles.forEach(role => {
+            let selectedRole = false;
+            for (let i = 0; i < user.roles.length; i++) {
+                if (user.roles[i].name === role.name) {
+                    selectedRole = true;
+                    break;
+                }
+            }
+            let el = document.createElement("option");
+            el.text = role.role.substring(5);
+            el.value = role.id;
+            if (selectedRole) el.selected = true;
+            $('#rolesEditUser')[0].appendChild(el);
         })
-} //Отображение всех юзеров на страничке админа
+        })
+} // Изменение модели юзера
+
+
+//Изменение юзера на страничке админа
+$(async function() {editUser();});
+
+function editUser() {
+    const editForm = document.forms["formEditUser"];
+    editForm.addEventListener("submit", ev => {
+        ev.preventDefault();
+        let editUserRoles = [];
+        for (let i = 0; i < editForm.roles.options.length; i++) {
+            if (editForm.roles.options[i].selected) editUserRoles.push({
+                id : editForm.roles.options[i].value,
+                name : "ROLE_" + editForm.roles.options[i].text
+            })
+        }
+
+        fetch("http://localhost:8080/api/users/" + editForm.id.value, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+
+            body: JSON.stringify({
+                id: editForm.id.value,
+                firstName: editForm.firstName.value,
+                password: editForm.password.value,
+                age: editForm.age.value,
+                email: editForm.email.value,
+                roles: editUserRoles
+            })
+        }).then(() => {$('#editFormCloseButton').click();
+            allUsers();
+        })
+    })
+} //Изменение юзера на страничке админа
+
 
 //Удаление модели юзера
-
 $('#delete').on('show.bs.modal', ev => {
     let button = $(ev.relatedTarget);
     let id = button.data('id');
@@ -125,8 +216,8 @@ async function getUser(id) {
     return await response.json();
 } //Удаление модели юзера
 
-//Удаление самого юзера
 
+//Удаление самого юзера
 $(async function() {deleteUser();});
 
 function deleteUser(){
@@ -145,98 +236,8 @@ function deleteUser(){
     })
 } //Удаление самого юзера
 
-//Изменение модели юзера
-
-$('#edit').on('show.bs.modal', ev => {
-    let button = $(ev.relatedTarget);
-    let id = button.data('id');
-    showEditModal(id);
-})
-
-async function showEditModal(id) {
-    $('#rolesEditUser').empty();
-    let user = await getUser(id);
-    let form = document.forms["formEditUser"];
-    form.id.value = user.id;
-    form.firstName.value = user.firstName;
-    form.password.value = user.password;
-    form.age.value = user.age;
-    form.email.value = user.email;
-
-    await fetch("http://localhost:8080/api/roles")
-        .then(res => res.json())
-        .then(roles => {roles.forEach(role => {
-            let selectedRole = false;
-            for (let i = 0; i < user.roles.length; i++) {
-                if (user.roles[i].name === role.name) {
-                    selectedRole = true;
-                    break;
-                }
-            }
-            let el = document.createElement("option");
-            el.text = role.role.substring(5);
-            el.value = role.id;
-            if (selectedRole) el.selected = true;
-            $('#rolesEditUser')[0].appendChild(el);
-        })
-        })
-} // Изменение модели юзера
-
-//Изменение юзера на страничке админа
-
-$(async function() {editUser();});
-
-function editUser() {
-    const editForm = document.forms["formEditUser"];
-    editForm.addEventListener("submit", ev => {
-        ev.preventDefault();
-        let editUserRoles = [];
-        for (let i = 0; i < editForm.roles.options.length; i++) {
-            if (editForm.roles.options[i].selected) editUserRoles.push({
-                id : editForm.roles.options[i].value,
-                name : "ROLE_" + editForm.roles.options[i].text
-            })
-        }
-
-        fetch("http://localhost:8080/api/users/" + editForm.id.value, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-
-            body: JSON.stringify({
-                id: editForm.id.value,
-                firstName: editForm.firstName.value,
-                password: editForm.password.value,
-                age: editForm.age.value,
-                email: editForm.email.value,
-                roles: editUserRoles
-            })
-        }).then(() => {$('#editFormCloseButton').click();
-            allUsers();
-        })
-    })
-} //Изменение юзера на страничке админа
 
 
-//Шапка профиля и отображение юзера у админа
-$(async function() {await thisUser();});
 
-async function thisUser() {
-    fetch("http://localhost:8080/api/viewUser")
-        .then(res => res.json())
-        .then(data => {
-            // Инфа в шапке
-            $('#headerUsername').append(data.username);
-            let roles = data.roles.map(role => " " + role.role.substring(5));
-            $('#headerRoles').append(roles);
 
-            //Инфа в таблице
-            let user = `$(
-            <tr><td>${data.id}</td>
-                <td>${data.firstName}</td>
-                <td>${data.age}</td>
-                <td>${data.email}</td>
-                <td>${roles}</td>)`;
-            $('#userPanelBody').append(user);
-        })
-} //Шапка профиля и отображение юзера у админа
 
