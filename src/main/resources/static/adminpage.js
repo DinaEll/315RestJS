@@ -15,7 +15,6 @@ async function thisUser() {
             <tr><td>${data.id}</td>
                 <td>${data.firstName}</td>
                 <td>${data.age}</td>
-                <td>${data.email}</td>
                 <td>${roles}</td>)`;
             $('#userPanelBody').append(user);
         })
@@ -37,7 +36,6 @@ async function allUsers() {
                         <tr><td>${user.id}</td>
                             <td>${user.firstName}</td>
                             <td>${user.age}</td>
-                            <td>${user.email}</td>
                             <td>${user.roles.map(role => " " + role.role.substring(5))}</td>
                             <td><button type="button" class="btn btn-info" data-toggle="modal" id="buttonEdit"
                                 data-action="edit" data-id="${user.id}" data-target="#edit">Edit</button>
@@ -88,7 +86,6 @@ async function newUser() {
                 firstName: form.firstName.value,
                 password: form.password.value,
                 age: form.age.value,
-                email: form.email.value,
                 roles: newUserRoles
             })
 
@@ -115,7 +112,6 @@ async function showEditModal(id) {
     form.firstName.value = user.firstName;
     form.password.value = user.password;
     form.age.value = user.age;
-    form.email.value = user.email;
 
     await fetch("http://localhost:8080/api/roles")
         .then(res => res.json())
@@ -161,7 +157,6 @@ function editUser() {
                 firstName: editForm.firstName.value,
                 password: editForm.password.value,
                 age: editForm.age.value,
-                email: editForm.email.value,
                 roles: editUserRoles
             })
         }).then(() => {$('#editFormCloseButton').click();
@@ -185,8 +180,6 @@ async function showDeleteModal(id) {
     form.firstName.value = user.firstName;
     form.password.value = user.password;
     form.age.value = user.age;
-    form.email.value = user.email;
-
 
     $('#rolesDeleteUser').empty();
 

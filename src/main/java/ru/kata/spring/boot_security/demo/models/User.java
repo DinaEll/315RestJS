@@ -26,7 +26,7 @@ public class User implements UserDetails {
     @Column(name = "name")
     private String firstName;
 
-    @NotEmpty(message = "Email should not be empty")
+    @NotEmpty(message = "Password should not be empty")
     @Column(name = "password")
     private String password;
 
@@ -34,9 +34,6 @@ public class User implements UserDetails {
     @Column(name = "age")
     private int age;
 
-    @NotEmpty(message = "Email should not be empty")
-    @Column(name = "email")
-    private String email;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="users_roles",
@@ -56,20 +53,18 @@ public class User implements UserDetails {
 
     public User() {}
 
-    public User(String userName, String password, int age, String email, List<Role> roles) {
+    public User(String userName, String password, int age, List<Role> roles) {
         this.firstName = userName;
         this.password = password;
         this.age = age;
-        this.email = email;
         this.roles = roles;
     }
 
-    public User(int id, String userName, String password, int age, String email, List<Role> roles) {
+    public User(int id, String userName, String password, int age, List<Role> roles) {
         this.id = id;
         this.firstName = userName;
         this.password = password;
         this.age = age;
-        this.email = email;
         this.roles = roles;
     }
 
@@ -97,8 +92,9 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return firstName;
     }
+
 
     public String getFirstName() {
         return firstName;
@@ -140,14 +136,6 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public List<Role> getRoles() {
         return roles;
     }
@@ -174,7 +162,6 @@ public class User implements UserDetails {
                 ", username='" + firstName + '\'' +
                 ", password='" + password + '\'' +
                 ", age='" + age + '\'' +
-                ", email='" + email + '\'' +
                 ", roles=" + getRoles() +
                 '}';
     }
@@ -185,7 +172,7 @@ public class User implements UserDetails {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return id == user.id && age == user.age && Objects.equals(firstName, user.firstName)
-                && Objects.equals(password, user.password) && Objects.equals(email, user.email);
+                && Objects.equals(password, user.password);
     }
 
     @Override
