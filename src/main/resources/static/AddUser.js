@@ -1,6 +1,5 @@
-$(async function() {
-    await newUser();
-});
+$(async function() {await newUser();});
+
 async function newUser() {
     await fetch("http://localhost:8080/api/roles")
         .then(res => res.json())
@@ -16,7 +15,6 @@ async function newUser() {
     const form = document.forms["formNewUser"];
 
     form.addEventListener('submit', addNewUser)
-
     function addNewUser(e) {
         e.preventDefault();
         let newUserRoles = [];
@@ -26,11 +24,10 @@ async function newUser() {
                 name : form.roles.options[i].name
             })
         }
+
         fetch("http://localhost:8080/api/users", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            method: 'POST', headers: {'Content-Type': 'application/json'},
+
             body: JSON.stringify({
                 firstName: form.firstName.value,
                 password: form.password.value,
@@ -38,11 +35,11 @@ async function newUser() {
                 email: form.email.value,
                 roles: newUserRoles
             })
+
         }).then(() => {
             form.reset();
             allUsers();
             $('#allUsersTable').click();
         })
     }
-
 }

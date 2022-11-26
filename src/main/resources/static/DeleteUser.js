@@ -1,7 +1,5 @@
-$(async function() {
+$(async function() {deleteUser();});
 
-    deleteUser();
-});
 function deleteUser(){
     const deleteForm = document.forms["formDeleteUser"];
     deleteForm.addEventListener("submit", ev => {
@@ -12,8 +10,7 @@ function deleteUser(){
                 'Content-Type': 'application/json'
             }
         })
-            .then(() => {
-                $('#deleteFormCloseButton').click();
+            .then(() => {$('#deleteFormCloseButton').click();
                 allUsers();
             })
     })

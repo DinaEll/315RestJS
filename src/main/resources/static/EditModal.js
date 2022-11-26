@@ -14,12 +14,9 @@ async function showEditModal(id) {
     form.age.value = user.age;
     form.email.value = user.email;
 
-
-
     await fetch("http://localhost:8080/api/roles")
         .then(res => res.json())
-        .then(roles => {
-            roles.forEach(role => {
+        .then(roles => {roles.forEach(role => {
                 let selectedRole = false;
                 for (let i = 0; i < user.roles.length; i++) {
                     if (user.roles[i].name === role.name) {

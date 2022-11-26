@@ -1,7 +1,7 @@
-$(async function() {
-    await allUsers();
-});
+$(async function () {await allUsers();});
+
 const table = $('#tbodyAllUserTable');
+
 async function allUsers() {
     table.empty()
     fetch("http://localhost:8080/api/users")
@@ -9,19 +9,17 @@ async function allUsers() {
         .then(data => {
             data.forEach(user => {
                 let tableWithUsers = `$(
-                        <tr>
-                            <td>${user.id}</td>
+                        <tr><td>${user.id}</td>
                             <td>${user.firstName}</td>
                             <td>${user.password}</td>                                               
                             <td>${user.age}</td>
                             <td>${user.email}</td>
                             <td>${user.roles.map(role => " " + role.role.substring(5))}</td>
-                            <td>
-                                <button type="button" class="btn btn-info" data-toggle="modal" id="buttonEdit"
+                            <td><button type="button" class="btn btn-info" data-toggle="modal" id="buttonEdit"
                                 data-action="edit" data-id="${user.id}" data-target="#edit">Edit</button>
                             </td>
-                            <td>
-                                <button type="button" class="btn btn-danger" data-toggle="modal" id="buttonDelete"
+                            
+                            <td><button type="button" class="btn btn-danger" data-toggle="modal" id="buttonDelete"
                                 data-action="delete" data-id="${user.id}" data-target="#delete">Delete</button>
                             </td>
                         </tr>)`;

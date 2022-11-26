@@ -1,7 +1,5 @@
-$(async function() {
-    editUser();
+$(async function() {editUser();});
 
-});
 function editUser() {
     const editForm = document.forms["formEditUser"];
     editForm.addEventListener("submit", ev => {
@@ -16,9 +14,8 @@ function editUser() {
 
         fetch("http://localhost:8080/api/users/" + editForm.id.value, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: {'Content-Type': 'application/json'},
+
             body: JSON.stringify({
                 id: editForm.id.value,
                 firstName: editForm.firstName.value,
@@ -27,8 +24,7 @@ function editUser() {
                 email: editForm.email.value,
                 roles: editUserRoles
             })
-        }).then(() => {
-            $('#editFormCloseButton').click();
+        }).then(() => {$('#editFormCloseButton').click();
             allUsers();
         })
     })
