@@ -9,8 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.kata.spring.boot_security.demo.dao.RoleDaoImpl;
-import ru.kata.spring.boot_security.demo.dao.UserDaoImpl;
+import ru.kata.spring.boot_security.demo.dao.RoleDao;
+import ru.kata.spring.boot_security.demo.dao.UserDao;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 
@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final RoleDaoImpl roleDao;
-    private final UserDaoImpl userDao;
+    private final RoleDao roleDao;
+    private final UserDao userDao;
 
     @Autowired
     public PasswordEncoder bCryptPasswordEncoder() {
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Autowired
-    public UserServiceImpl(RoleDaoImpl roleDao, UserDaoImpl userDao) {
+    public UserServiceImpl(RoleDao roleDao, UserDao userDao) {
         this.roleDao = roleDao;
         this.userDao = userDao;
     }
