@@ -13,7 +13,6 @@ async function thisUser() {
             let user = `$(
             <tr><td>${data.id}</td>
                 <td>${data.firstName}</td>
-                <td>${data.password}</td>
                 <td>${data.age}</td>
                 <td>${data.email}</td>
                 <td>${roles}</td>)`;

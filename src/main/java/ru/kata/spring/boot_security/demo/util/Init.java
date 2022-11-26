@@ -40,13 +40,15 @@ public class Init {
         roleUser.add(role2);
 
         User user1 = new User("admin", "admin", 12, "admin@gmail.com", roleAdmin);
-        User user2 = new User("user", "user",  1, "user@gmail.com", roleUser);
-        User user3 = new User("user2", "user2", 2, "user2@gmail.com", roleUser);
+        User user2 = new User("Камышик", "Камышик", 2, "kk@gmail.com", roleAdmin);
+        User user3 = new User("Камышинка", "Камышинка", 3, "kkk@gmail.com", roleUser);
         User user4 = new User("admin2", "admin2", 2, "admin2@gmail.com", allRoles);
+        User user5 = new User("Креветка", "Креветка", 2, "fish@gmail.com", roleUser);
 
         userService.add(user1);
         userService.add(user2);
         userService.add(user3);
         userService.add(user4);
+        userService.add(user5);
     }
 }
