@@ -38,7 +38,7 @@ public class AdminController {
         model.addAttribute("roles", roleService.getListRoles());
 
 
-        return "allUsers";
+        return "allusers";
     }
 
     @PostMapping(value = "/add")
