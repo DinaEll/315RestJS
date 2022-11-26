@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -14,18 +17,24 @@ import java.util.Objects;
 public class User implements UserDetails {
 
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotEmpty(message = "Name should not be empty")
+    @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
     @Column(name = "name")
     private String firstName;
 
+    @NotEmpty(message = "Email should not be empty")
     @Column(name = "password")
     private String password;
 
+    @Min(value = 0, message = "Age should be greater than 0")
     @Column(name = "age")
     private int age;
 
+    @NotEmpty(message = "Email should not be empty")
     @Column(name = "email")
     private String email;
 
@@ -147,6 +156,16 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    public String getShortRoles() {
+        if (roles.toString().equals("[ROLE_USER]")) {
+            return "USER";
+        } else if (roles.toString().equals("[ROLE_ADMIN]")) {
+            return "ADMIN";
+        } else if (roles.equals(null)) {
+            return null;
+        }
+        return "ADMIN USER";
+    }
 
     @Override
     public String toString() {
@@ -158,17 +177,6 @@ public class User implements UserDetails {
                 ", email='" + email + '\'' +
                 ", roles=" + getRoles() +
                 '}';
-    }
-
-    public String getShortRoles() {
-        if (roles.toString().equals("[ROLE_USER]")) {
-            return "USER";
-        } else if (roles.toString().equals("[ROLE_ADMIN]")) {
-            return "ADMIN";
-        } else if (roles.equals(null)) {
-            return null;
-        }
-        return "ADMIN USER";
     }
 
     @Override
