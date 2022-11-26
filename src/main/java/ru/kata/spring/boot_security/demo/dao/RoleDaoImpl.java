@@ -22,7 +22,7 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public Role getByIdRole(Long id) {
+    public Role getByIdRole(int id) {
         return entityManager.find(Role.class, id);
     }
 
@@ -46,7 +46,7 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
-    public List<Role> getRolesListById(List<Long> roles) {
+    public List<Role> getRolesListById(List<Integer> roles) {
         TypedQuery<Role> q = entityManager.createQuery("select r from Role r where r.id in :role", Role.class);
         q.setParameter("role", roles);
         return new ArrayList<>(q.getResultList());

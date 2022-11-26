@@ -42,9 +42,9 @@ public class AdminController {
     @PostMapping(value = "/add")
     public String createUser(@ModelAttribute("user") User user, @RequestParam(value = "role") String role) {
         if (role.equals("ROLE_USER")) {
-            user.setRoles(List.of(roleService.getRoleById(2L)));
+            user.setRoles(List.of(roleService.getRoleById(2)));
         } else if (role.equals("ROLE_ADMIN")) {
-            user.setRoles(List.of(roleService.getRoleById(1L)));
+            user.setRoles(List.of(roleService.getRoleById(1)));
         }
 
         userService.add(user);
@@ -57,9 +57,9 @@ public class AdminController {
     public String userUpdate(@ModelAttribute("user") User user, @RequestParam(value = "role") String role) {
 
         if (role.equals("ROLE_USER")) {
-            user.setRoles(List.of(roleService.getRoleById(2L)));
+            user.setRoles(List.of(roleService.getRoleById(2)));
         } else if (role.equals("ROLE_ADMIN")) {
-            user.setRoles(List.of(roleService.getRoleById(1L)));
+            user.setRoles(List.of(roleService.getRoleById(1)));
         }
         userService.update(user);
         return "redirect:/admin/allUsers";
@@ -73,7 +73,7 @@ public class AdminController {
 
 
     @DeleteMapping("/delete/{id}")
-    public String delete(@PathVariable("id") Long id) {
+    public String delete(@PathVariable("id") int id) {
         userService.delete(id);
         return "redirect:/admin/allUsers";
     }

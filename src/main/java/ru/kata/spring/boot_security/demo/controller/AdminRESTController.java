@@ -32,7 +32,7 @@ public class AdminRESTController {
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<User> showUser(@PathVariable Long id) {
+    public ResponseEntity<User> showUser(@PathVariable int id) {
         User user = userService.getById(id);
         return user != null
                 ? new ResponseEntity<>(user, HttpStatus.OK)
@@ -52,7 +52,7 @@ public class AdminRESTController {
     }
 
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable("id") Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable("id") int id) {
         userService.delete(id);
         return ResponseEntity.ok().build();
     }
@@ -68,7 +68,7 @@ public class AdminRESTController {
     }
 
     @GetMapping("/roles/{id}")
-    ResponseEntity<Role> getRoleById(@PathVariable("id") long id){
+    ResponseEntity<Role> getRoleById(@PathVariable("id") int id){
         return new ResponseEntity<>(roleService.getRoleById(id), HttpStatus.OK);
     }
 }

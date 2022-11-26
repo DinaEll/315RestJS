@@ -11,7 +11,7 @@ import java.util.List;
 public class Role implements GrantedAuthority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column(name = "role")
     private String role;
@@ -35,16 +35,16 @@ public class Role implements GrantedAuthority {
         this.role = role;
     }
 
-    public Role(Long id, String role) {
+    public Role(int id, String role) {
         this.id = id;
         this.role = role;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
