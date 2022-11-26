@@ -22,8 +22,8 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "city")
-    private String city;
+    @Column(name = "age")
+    private int age;
 
     @Column(name = "email")
     private String email;
@@ -46,19 +46,19 @@ public class User implements UserDetails {
 
     public User() {}
 
-    public User(String userName, String password, String city, String email, List<Role> roles) {
+    public User(String userName, String password, int age, String email, List<Role> roles) {
         this.firstName = userName;
         this.password = password;
-        this.city = city;
+        this.age = age;
         this.email = email;
         this.roles = roles;
     }
 
-    public User(Long id, String userName, String password, String city, String email, List<Role> roles) {
+    public User(Long id, String userName, String password, int age, String email, List<Role> roles) {
         this.id = id;
         this.firstName = userName;
         this.password = password;
-        this.city = city;
+        this.age = age;
         this.email = email;
         this.roles = roles;
     }
@@ -118,12 +118,12 @@ public class User implements UserDetails {
         return true;
     }
 
-    public String getCity() {
-        return city;
+    public int getAge() {
+        return age;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public void setPassword(String password) {
@@ -153,7 +153,7 @@ public class User implements UserDetails {
                 "id=" + id +
                 ", username='" + firstName + '\'' +
                 ", password='" + password + '\'' +
-                ", city='" + city + '\'' +
+                ", age='" + age + '\'' +
                 ", email='" + email + '\'' +
                 ", roles=" + getRoles() +
                 '}';

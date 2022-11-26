@@ -11,7 +11,7 @@ async function showEditModal(id) {
     form.id.value = user.id;
     form.firstName.value = user.firstName;
     form.password.value = user.password;
-    form.city.value = user.city;
+    form.age.value = user.age;
     form.email.value = user.email;
 
 

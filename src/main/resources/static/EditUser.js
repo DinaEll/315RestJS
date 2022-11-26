@@ -23,7 +23,7 @@ function editUser() {
                 id: editForm.id.value,
                 firstName: editForm.firstName.value,
                 password: editForm.password.value,
-                city: editForm.city.value,
+                age: editForm.age.value,
                 email: editForm.email.value,
                 roles: editUserRoles
             })

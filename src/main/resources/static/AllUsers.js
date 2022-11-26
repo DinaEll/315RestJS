@@ -13,7 +13,7 @@ async function allUsers() {
                             <td>${user.id}</td>
                             <td>${user.firstName}</td>
                             <td>${user.password}</td>                                               
-                            <td>${user.city}</td>
+                            <td>${user.age}</td>
                             <td>${user.email}</td>
                             <td>${user.roles.map(role => " " + role.role.substring(5))}</td>
                             <td>
