@@ -1,4 +1,4 @@
-//Шапка профиля и отображение юзера у админа
+
 $(async function() {await thisUser();});
 
 async function thisUser() {
@@ -18,10 +18,10 @@ async function thisUser() {
                 <td>${roles}</td>)`;
             $('#userPanelBody').append(user);
         })
-} //Шапка профиля и отображение юзера у админа
+} //Profile and user at the admin
 
 
-//Отображение всех юзеров на страничке админа
+//All users for admin
 $(async function () {await allUsers();});
 
 const table = $('#tbodyAllUserTable');
@@ -48,10 +48,10 @@ async function allUsers() {
                 table.append(tableWithUsers);
             })
         })
-} //Отображение всех юзеров на страничке админа
+} //All users for admin
 
 
-//Добавление нового юзера
+//Add new user for admin
 $(async function() {await newUser();});
 
 async function newUser() {
@@ -95,9 +95,9 @@ async function newUser() {
             $('#allUsersTable').click();
         })
     }
-} //Добавление нового юзера
+} //Add new user for admin
 
-//Изменение модели юзера
+//Update user
 $('#edit').on('show.bs.modal', ev => {
     let button = $(ev.relatedTarget);
     let id = button.data('id');
@@ -130,10 +130,9 @@ async function showEditModal(id) {
             $('#rolesEditUser')[0].appendChild(el);
         })
         })
-} // Изменение модели юзера
+} //Update user
 
 
-//Изменение юзера на страничке админа
 $(async function() {editUser();});
 
 function editUser() {
@@ -163,10 +162,10 @@ function editUser() {
             allUsers();
         })
     })
-} //Изменение юзера на страничке админа
+} //Update user
 
 
-//Удаление модели юзера
+//Delete user
 $('#delete').on('show.bs.modal', ev => {
     let button = $(ev.relatedTarget);
     let id = button.data('id');
@@ -207,10 +206,10 @@ async function getUser(id) {
     let url = "http://localhost:8080/api/users/" + id;
     let response = await fetch(url);
     return await response.json();
-} //Удаление модели юзера
+} //Delete user
 
 
-//Удаление самого юзера
+
 $(async function() {deleteUser();});
 
 function deleteUser(){
@@ -227,7 +226,7 @@ function deleteUser(){
                 allUsers();
             })
     })
-} //Удаление самого юзера
+} //Delete user
 
 
 
