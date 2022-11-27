@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
-import ru.kata.spring.boot_security.demo.service.RoleServiceImpl;
 import ru.kata.spring.boot_security.demo.service.UserService;
-import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -29,7 +27,7 @@ public class AdminRESTController {
     }
     @GetMapping("/users")
     public ResponseEntity<List<User>> showAllUsers() {
-        List<User> users = userService.getListUsers();
+        List<User> users = userService.getAllUsers();
         try {
             return new ResponseEntity<>(users, HttpStatus.OK);
         } catch (Exception e) {
@@ -72,7 +70,7 @@ public class AdminRESTController {
 
     @GetMapping("/roles")
     public ResponseEntity<List<Role>> getAllRoles() {
-        return new ResponseEntity<>(userService.getListRoles(), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getAllRoles(), HttpStatus.OK);
     }
 
     @GetMapping("/roles/{id}")

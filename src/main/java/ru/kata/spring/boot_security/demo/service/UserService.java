@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface UserService extends UserDetailsService {
 
-    List<Role> getListRoles();
+    List<Role> getAllRoles();
     List<Role> getListByRole(List<String> name);
     void add(User user);
-    List<User> getListUsers();
+    List<User> getAllUsers();
     void delete(int id);
     void update(User user);
     User getById(int id);

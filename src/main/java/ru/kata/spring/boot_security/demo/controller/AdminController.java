@@ -6,13 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
-import ru.kata.spring.boot_security.demo.service.RoleServiceImpl;
 import ru.kata.spring.boot_security.demo.service.UserService;
-import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
@@ -32,7 +29,7 @@ public class AdminController {
     @GetMapping("/allUsers")
     public String allUsers(Model model, Principal principal) {
         model.addAttribute("userAdmin", userService.loadUserByUsername(principal.getName()));
-        List<User> user = userService.getListUsers();
+        List<User> user = userService.getAllUsers();
         model.addAttribute("newUser", new User());
         model.addAttribute("user", user);
         model.addAttribute("roles", roleService.getListRoles());
